@@ -21,11 +21,13 @@ const Tdt = () => {
 
     const textElements1 = para1.current.querySelectorAll("span");
     const textElements2 = para2.current.querySelectorAll("span");
-
     const MobElement = MobPara.current.querySelectorAll("span");
 
     const tl = gsap.timeline();
-    
+
+    // Disable ScrollTrigger's sessionStorage caching
+    ScrollTrigger.config({ markers: false });
+
     // Define media queries with GSAP's matchMedia
     const mm = gsap.matchMedia();
     mm.add("(min-width: 769px)", () => {
@@ -121,7 +123,6 @@ const Tdt = () => {
     // Mobile Animation
 
     mm.add("(max-width: 768px)", () => {
-
       tl.fromTo(
         Title.current,
         {
@@ -130,13 +131,13 @@ const Tdt = () => {
         {
           scrollTrigger: {
             trigger: Title.current,
-            start: "top 60%",
-            end: "top 20%",
+            start: "top 0%",
+            end: "top -10%",
             scrub: 3,
           },
           color: "#cb6200",
           letterSpacing: "10px",
-          duration: 3,
+          duration: 1,
         }
       );
 
@@ -154,12 +155,13 @@ const Tdt = () => {
           color: "#fff",
           scrollTrigger: {
             trigger: MobPara.current,
-            start: "top 80%",
-            end: "top 40%",
+            start: "top 20%",
+            end: "top 0%",
             scrub: 3,
           },
         }
       );
+
       tl.fromTo(
         socialLink2.current,
         {
@@ -171,8 +173,8 @@ const Tdt = () => {
         {
           scrollTrigger: {
             trigger: socialLink2.current,
-            start: "top 80%",
-            end: "top 40%",
+            start: "top 10%",
+            end: "top 0%",
             scrub: 1,
             ease: Power2.easeInOut,
           },
@@ -183,6 +185,7 @@ const Tdt = () => {
         }
       );
     });
+
     return () => {
       mm.revert();
     };
@@ -256,9 +259,7 @@ const Tdt = () => {
           />
           <img
             className="size-[35px]"
-            src="https://dl.dropboxusercontent.com/scl/fi/hhscgdmm2ggugkd0wuyep/instagram-1.png?rlkey=dfwzcpozhek56uc751c8wexwi&st=sv5zqz2n&dl=0"
-            alt=""
-          />
+            src="https://dl.dropboxusercontent.com/scl/fi/hhscgdmm2ggugkd0wuyep/instagram-1.png?rlkey=dfwzcpozhek56uc751c8wexwi&st=sv5zqz2n&dl=0"  />
         </div>
         <div className="video-div relative">
           <video
@@ -275,3 +276,4 @@ const Tdt = () => {
 };
 
 export default Tdt;
+
