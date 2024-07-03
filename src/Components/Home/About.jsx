@@ -203,8 +203,7 @@ const About = () => {
           duration: 2,
           ease: Power1.easeInOut
         }
-      )
-      
+      );
     });
 
     return () => {
@@ -224,7 +223,7 @@ const About = () => {
             >
               About
             </h1>
-            <video ref={logoAnimationMobile} muted autoPlay={false} src={Logo} width={250} className="max-w-[400px] lg:hidden xl:max-w-[600px] mx-auto"></video>
+            <video playsInline ref={logoAnimationMobile} muted autoPlay={false} src={Logo} width={250} className="max-w-[400px] lg:hidden xl:max-w-[600px] mx-auto"></video>
             <h2 ref={text2} className="text-justify text-sm lg:text-[16px] px-2 lg:px-0 lg:text-left font-inter tracking-normal">
               Welcome to Shree Crafteria, where creativity meets tradition!
               Explore our exquisite lippan art pieces, meticulously crafted to

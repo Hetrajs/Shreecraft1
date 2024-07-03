@@ -1,8 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import NavbarTopBarPreview from "./partials/Navbar";
 import { CartContext } from "../../CartContext";
 import "remixicon/fonts/remixicon.css";
 import EmptyCart from "./partials/EmptyCart";
+import Slider from "react-slick";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Cart = () => {
   const {
@@ -24,6 +29,8 @@ const Cart = () => {
   const [formFilled, setFormFilled] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [disableSelectSize, setDisableSelectSize] = useState({});
+  const [currentSlides, setCurrentSlides] = useState({}); // Updated state for current slides
+  const sliders = useRef({}); // Updated ref for sliders
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -140,6 +147,36 @@ const Cart = () => {
     return <EmptyCart />;
   }
 
+  const getSettings = (productId) => ({
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    customPaging: (i) => (
+      <div
+        className="custom-dot"
+        style={{
+          backgroundColor: currentSlides[productId] === i ? "#000" : "#d8d8d8",
+        }}
+        onClick={() => sliders.current[productId].slickGoTo(i)}
+      />
+    ),
+    appendDots: (dots) => (
+      <div style={{ textAlign: "center", marginTop: 0 }}>
+        <ul style={{ margin: "0px" }}> {dots} </ul>
+      </div>
+    ),
+    dotsClass: "slick-dots slick-thumb",
+    beforeChange: (oldIndex, newIndex) => {
+      setCurrentSlides((prevState) => ({
+        ...prevState,
+        [productId]: newIndex,
+      }));
+    },
+  });
+
   return (
     <>
       <NavbarTopBarPreview />
@@ -156,7 +193,7 @@ const Cart = () => {
                 <div className="mobile picture lg:hidden mx-auto lg:mx-0 overflow-hidden w-full">
                   <img
                     className="w-full rounded-md h-full object-cover"
-                    src={item.FirstImage}
+                    src={item.Images[0]} // Displaying the first image from Images array
                     alt=""
                   />
                 </div>
@@ -197,7 +234,7 @@ const Cart = () => {
                       ))}
                     </select>
                     <button
-                      className="text-red-600 bg-red-500 px-2 rounded-lg text-white py-2 font-medium"
+                      className="bg-red-500 px-2 rounded-lg text-white py-2 font-medium"
                       onClick={() => handleRemoveFromCart(item.id)}
                     >
                       Remove
@@ -209,7 +246,7 @@ const Cart = () => {
                 <div className="picture overflow-hidden w-[300px]">
                   <img
                     className="w-full rounded-md h-full object-cover"
-                    src={item.FirstImage}
+                    src={item.Images[0]}
                     alt=""
                   />
                 </div>
@@ -352,13 +389,24 @@ const Cart = () => {
               .slice(0, 3)
               .map((product) => (
                 <div key={product.id} className="mt-20 lg:mt-32">
-                  <div className="picture rounded-[20px] overflow-hidden bg-gray-200">
-                    <img
-                      src={product.FirstImage}
+                  <Slider
+                ref={(slider) => (sliders.current[product.id] = slider)}
+                {...getSettings(product.id)}
+              >
+                {product.Images.map((image, index) => (
+                  <div
+                    key={index}
+                    className="P_image mt-5 w-full h-[15rem] lg:h-[40rem] px-2"
+                  >
+                    <LazyLoadImage
+                      className="w-full h-full rounded-[20px] object-cover object-center"
+                      src={image}
                       alt={product.ProductName}
-                      className="w-full h-full object-cover"
+                      effect="blur"
                     />
                   </div>
+                ))}
+              </Slider>
                   <div className="product_details mt-7 lg:mt-5 flex items-center justify-between">
                     <div className="p_name_select flex flex-col items-start">
                       <h1 className="capitalize font-inter text-[20px] lg:text-[28px] text-center font-semibold text-[#000000]">

@@ -263,6 +263,7 @@ const Tdt = () => {
         </div>
         <div className="video-div relative">
           <video
+            playsInline
             autoPlay
             muted
             loop
