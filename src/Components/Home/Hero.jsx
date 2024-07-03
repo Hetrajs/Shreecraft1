@@ -50,7 +50,7 @@ const Hero = () => {
         </div>
         {/* Desktop */}
         <figure className="w-full overflow-hidden">
-          <img
+          <img data-scroll data-scroll-speed="-.3"
             className="w-full object-cover opacity-0 hidden lg:block hero-image"
             src="https://dl.dropboxusercontent.com/scl/fi/4jcuuhyryle9tw452xjel/1-2-_000000.jpg?rlkey=j553bxh07n2atr44uzmxkr8l3&st=gsfoxyu1&dl=0"
             alt="Desktop Background"

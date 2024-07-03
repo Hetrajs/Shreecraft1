@@ -131,14 +131,14 @@ const About = () => {
         text1.current,
         {
           x: "-100%",
-          y: 100,
+          y: -20,
           scale: 3,
           color: "#999999",
           opacity: 0
         },
         {
           x: "0%",
-          y: 100,
+          y: -20,
           scale: 3,
           duration: 3,
           opacity: 1,
@@ -149,12 +149,12 @@ const About = () => {
         text1.current,
         {
           x: "0%",
-          y: 100,
+          y: -20,
           scale: 3,
         },
         {
           x: 0,
-          y: 50,
+          y: 20,
           scale: 2,
           duration: 2,
           color: "white"
@@ -170,22 +170,13 @@ const About = () => {
           y: 20,
           opacity: 1,
           duration: 2,
-          ease: Power1.easeInOut
+          ease: Power1.easeInOut,
+          onStart: () => {
+            logoAnimationMobile.current.play();
+          }
         }
       )
-      .fromTo(
-        logoAnimationMobile.current,
-        {
-          y: 30,
-          opacity: 0
-        },
-        {
-          y: 50,
-          opacity: 1,
-          duration: 1,
-        },
-        'a'
-      )
+      
       .fromTo(
         text3.current,
         {
@@ -197,9 +188,6 @@ const About = () => {
           opacity: 1,
           duration: 2,
           ease: Power1.easeInOut,
-          onStart: () => {
-            logoAnimationMobile.current.play();
-          }
         },
         'a'
       )
@@ -237,18 +225,18 @@ const About = () => {
               About
             </h1>
             <video ref={logoAnimationMobile} muted autoPlay={false} src={Logo} width={250} className="max-w-[400px] lg:hidden xl:max-w-[600px] mx-auto"></video>
-            <h2 ref={text2} className="text-justify text-sm lg:text-center px-2 lg:px-0 lg:text-left font-inter tracking-normal">
+            <h2 ref={text2} className="text-justify text-sm lg:text-[16px] px-2 lg:px-0 lg:text-left font-inter tracking-normal">
               Welcome to Shree Crafteria, where creativity meets tradition!
               Explore our exquisite lippan art pieces, meticulously crafted to
               add an enchanting touch to any space. Elevate your décor with our
               unique blend of heritage and modern aesthetics
             </h2>
-            <h2 ref={text3} className="text-justify text-sm lg:text-center px-2 lg:px-0 mt-20 lg:text-left font-inter tracking-normal">
+            <h2 ref={text3} className="text-justify text-sm lg:text-[16px] px-2 lg:px-0 mt-20 lg:text-left font-inter tracking-normal">
               Our handcrafted pieces blend tradition with innovation, bringing
               a touch of cultural elegance to your modern space. Discover the
               beauty of lippan artistry with us
             </h2>
-            <h2 ref={text4} className="text-justify text-sm lg:text-center px-2 lg:px-0 lg:text-left font-inter tracking-normal">
+            <h2 ref={text4} className="text-justify text-sm lg:text-[16px] px-2 lg:px-0 lg:text-left font-inter tracking-normal">
               Lippan art is a traditional form of decorative wall mural found in
               the Kutch region of Gujarat, India. It involves creating intricate
               patterns using a mixture of mud and camel dung, adorned with
