@@ -33,7 +33,6 @@ const Cart = () => {
   const sliders = useRef({}); // Updated ref for sliders
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     let total = 0,
       savings = 0;
 
